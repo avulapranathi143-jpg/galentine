@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Galentine?</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:linear-gradient(135deg,#ffd6e8,#ffc0cb);
+    overflow:hidden;
+    text-align:center;
+    font-family:Arial, sans-serif;
+}
+
+h1 {
+    color:#d63384;
+    font-size:2.5rem;
+}
+
+button {
+    padding:12px 25px;
+    font-size:1.1rem;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    margin:10px;
+    transition:0.3s;
+}
+
+#yes {
+    background:#ff4d6d;
+    color:white;
+}
+
+#no {
+    background:#ffb3c6;
+}
+
+#message {
+    margin-top:30px;
+    font-size:2.2rem;
+    color:#c9184a;
+    font-family:'Great Vibes', cursive;
+}
+
+.heart {
+    position:absolute;
+    font-size:28px;
+    animation:floatUp 4s ease-out forwards;
+}
+
+@keyframes floatUp {
+    from { transform:translateY(0); opacity:1; }
+    to { transform:translateY(-200px); opacity:0; }
+}
+
+</style>
+</head>
+<body>
+
+<h1>Will You Be My Galentine? 💕</h1>
+
+<button id="yes">YES</button>
+<button id="no">NO</button>
+
+<div id="message"></div>
+
+<!-- AUDIO -->
+<audio id="bgMusic" src="her-song.mp3" loop></audio>
+
+<script>
+let yesSize = 1;
+const yesBtn = document.getElementById('yes');
+const noBtn = document.getElementById('no');
+const message = document.getElementById('message');
+const music = document.getElementById('bgMusic');
+
+// YES BUTTON
+yesBtn.addEventListener('click', function(){
+    yesSize += 0.3;
+    yesBtn.style.transform = `scale(${yesSize})`;
+
+    // Play music
+    music.volume = 0;
+    music.play();
+
+    // Fade in
+    let fade = setInterval(function(){
+        if(music.volume < 1){
+            music.volume += 0.05;
+        } else {
+            clearInterval(fade);
+        }
+    },200);
+
+    // Show message
+    message.innerHTML = "Happy Galentines Day My Love 😊";
+
+    // Heart explosion
+    for(let i=0;i<30;i++){
+        let heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '💖';
+        heart.style.left = Math.random()*100 + 'vw';
+        heart.style.top = Math.random()*100 + 'vh';
+        document.body.appendChild(heart);
+    }
+
+    // Rose rain
+    for(let i=0;i<20;i++){
+        let rose = document.createElement('div');
+        rose.className = 'heart';
+        rose.innerHTML = '🌹';
+        rose.style.left = Math.random()*100 + 'vw';
+        rose.style.top = Math.random()*100 + 'vh';
+        document.body.appendChild(rose);
+    }
+});
+
+// NO BUTTON
+noBtn.addEventListener('mouseover', function(){
+    noBtn.style.position='absolute';
+    noBtn.style.left=Math.random()*80 + 'vw';
+    noBtn.style.top=Math.random()*80 + 'vh';
+
+    message.innerHTML = "You have no other option Press YES 😊";
+
+    yesSize += 0.2;
+    yesBtn.style.transform = `scale(${yesSize})`;
+});
+
+</script>
+
+</body>
+</html>
